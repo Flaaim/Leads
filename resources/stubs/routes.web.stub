@@ -1,0 +1,13 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Modules\DummyArgument\Controllers\DummyClass;
+
+Route::group(['prefix'=> 'DummyRoutePrefix', 'middleware' => []], function(){
+    Route::get('/', [DummyClass::class, 'index'])->name('DummyRoutePrefix.index');
+    Route::get('/create', [DummyClass::class, 'create'])->name('DummyRoutePrefix.create');
+    Route::post('/', [DummyClass::class, 'store'])->name('DummyRoutePrefix.create');
+    Route::get('/edit/{DummyModelVariable}', [DummyClass::class, 'edit'])->name('DummyRoutePrefix.edit');
+    Route::put('/{DummyModelVariable}', [DummyClass::class, 'update'])->name('DummyRoutePrefix.update');
+    Route::delete('/{DummyModelVariable}', [DummyClass::class, 'destroy'])->name('DummyRoutePrefix.destroy');
+});

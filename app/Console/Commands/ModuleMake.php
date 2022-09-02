@@ -118,6 +118,8 @@ class ModuleMake extends Command
                 $stub
             );
             $this->files->put($path, $stub);
+            $this->info("Controller created successfully.");
+            $this->createRoutes($controller, $modelName);
         }
 
     }
@@ -127,12 +129,76 @@ class ModuleMake extends Command
     }
 
     private function createApiController(){
+        $apiController = Str::studly(class_basename($this->argument('name')));
+        $modelName = Str::singular(Str::studly(class_basename($this->argument('name'))));
+        $path = $this->getApiControllerPath($this->argument('name'));
 
+        if($this->alreadyExists($path)){
+            $this->error('ApiController already exists');
+        }else {
+            $this->makeDirectory($path);
+            $stub = $this->files->get(base_path('/resources/stubs/controller.model.api.stub'));
+            $stub = str_replace(
+                [
+                    'DummyNamespace',
+                    'DummyRootNamespace',
+                    'DummyClass',
+                    'DummyArgument',
+                    'DummyModel',
+                    'model',
+                ],
+                [
+                    "App\\Modules\\".trim(str_replace("/", "\\", $this->argument('name')))."\\Controllers\\Api",
+                    $this->laravel->getNamespace(),
+                    $apiController."Controller",
+                    trim(str_replace("/", "\\", $this->argument('name'))),
+                    $modelName,
+                    Str::lower($modelName),
+                ],
+                $stub
+            );
+            $this->files->put($path, $stub);
+            $this->info("ApiController created successfully.");
+        }
     }
+    private function createRoutes($controller, $modelName){
+        $routesPath = $this->getRoutesPath($this->argument('name'));
 
+        if($this->alreadyExists($routesPath)){
+            $this->error('Routes already exists');
+        } else {
+            $this->makeDirectory($routesPath);
+            $stub = $this->files->get(base_path('/resources/stubs/routes.web.stub'));
+            $stub = str_replace(
+                [
+                    'DummyArgument',
+                    'DummyClass',
+                    'DummyRoutePrefix',
+                    'DummyModelVariable',
+                ],
+                [
+                    trim(str_replace("/", "\\", $this->argument('name'))),
+                    $controller."Controller",
+                    Str::plural(Str::snake(lcfirst($modelName))),
+                    Str::snake(lcfirst($modelName)),
+
+                ], 
+                $stub);
+            $this->files->put($routesPath, $stub);
+            $this->info('Routes created successfully');
+        }
+    }
+    private function getRoutesPath($name){
+        return $this->laravel['path']."/Modules/".str_replace('\\', '/', $name)."/Routes/web.php";
+    }
     private function getControllerPath($argument){
         $controller = Str::studly(class_basename($argument));
         return $this->laravel['path'].'/Modules/'.str_replace("\\", '/', $argument).'/Controllers/'.$controller."Controller.php";
+    }
+
+    private function getApiControllerPath($argument){
+        $apiController = Str::studly(class_basename($argument));
+        return $this->laravel['path']."/Modules/".str_replace("\\", "/", $argument)."/Controllers/Api/".$apiController."Controller.php";
     }
 
     private function alreadyExists($path){
@@ -143,7 +209,9 @@ class ModuleMake extends Command
         if(!$this->files->isDirectory(dirname($path))){
             $this->files->makeDirectory(dirname($path), 0777, true, true);
         }
+        return $path;
     }
+
 
 
 
