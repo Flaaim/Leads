@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
 
 class ModuleMake extends Command
 {
@@ -125,7 +126,24 @@ class ModuleMake extends Command
     }
 
     private function createView(){
-
+        $viewsPath = $this->getViewsPath($this->argument('name'));
+        
+        foreach($viewsPath as $path){
+            if($this->alreadyExists($path)){
+                $this->error("View already exixts");
+            } else {
+                $this->makeDirectory($path);
+                $stub = $this->files->get(base_path('resources/stubs/view.stub'));
+                $stub = str_replace(
+                    [''],
+                    [],
+                    $stub
+                );
+                $this->files->put($path, $stub);
+                $this->info("View created succesfully");
+            }
+        }
+       
     }
 
     private function createApiController(){
@@ -233,7 +251,18 @@ class ModuleMake extends Command
         $apiController = Str::studly(class_basename($argument));
         return $this->laravel['path']."/Modules/".str_replace("\\", "/", $argument)."/Controllers/Api/".$apiController."Controller.php";
     }
-
+    private function getViewsPath($name){
+        $views = collect([
+            'index',
+            'create',
+            'edit',
+            'show',
+        ]);
+        $viewsPath = $views->map(function ($item) use($name){
+            return base_path("/resources/views/".str_replace('\\', '/',$name).'/'.$item.".blade.php");
+        });
+        return $viewsPath;
+    }
     private function alreadyExists($path){
         return $this->files->exists($path);
     }
