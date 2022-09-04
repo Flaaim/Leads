@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Modules\DummyArgument\Controllers\DummyClass;
 
-Route::group(['prefix' => 'DummyRoutePrefix', middleware => []], function(){
+Route::group(['prefix' => 'DummyRoutePrefix', 'middleware' => []], function(){
     Route::get('/', [DummyClass::class, 'index'])->name('api.DummyRoutePrefix.index');
     Route::post('/', [DummyClass::class, 'store'])->name('api.DummyRoutePrefix.store');
     Route::get('/{DummyModelVariable}', [DummyClass::class, 'show'])->name('api.DummyRoutePrefix.show');
