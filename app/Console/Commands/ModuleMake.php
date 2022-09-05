@@ -28,6 +28,7 @@ class ModuleMake extends Command
                                         {--controller}
                                         {--api}
                                         {--view}
+                                        {--seed}
                                         ';
 
     /**
@@ -65,6 +66,9 @@ class ModuleMake extends Command
         }
         if($this->option('view')){
             $this->createView();
+        }
+        if($this->option('seed')){
+            $this->createSeed();
         }
     }
 
@@ -274,7 +278,36 @@ class ModuleMake extends Command
         return $path;
     }
 
+    private function createSeed(){
+        $seed = Str::studly(class_basename($this->argument('name')));
+        $routeSeed = $this->getSeedRoute($seed, $this->argument('name'));
+        if($this->alreadyExists($routeSeed)){
+            $this->error('Seed already exists');
+        } else{
+            
+            $this->makeDirectory($routeSeed);
+            $stub = $this->files->get(base_path().'/resources/stubs/seed.stub');
+            $stub = str_replace(
+                [
+                    'DummyNamespace',
+                    'DummyClass',
+                    'DummyTable',
+                ],
+                [
+                    'App\\Modules\\'.str_replace('/', '\\', trim($this->argument('name'))).'\\Seeds',
+                    $seed,
+                    Str::plural(strtolower($seed)),
+                ],
+                $stub
+            );
+            $this->files->put($routeSeed, $stub);
+            $this->info('Seed was created successfully');
+        }
+    }
 
+    private function getSeedRoute($seed, $name){
+        return $this->laravel['path'].'\\Modules\\'.$name.'\\Seeds\\'.$seed.".php";
+    }
 
 
 

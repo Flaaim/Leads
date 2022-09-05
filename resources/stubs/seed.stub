@@ -1,0 +1,22 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use DB;
+
+class DummyClass extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('DummyTable')->insert([
+
+        ]);
+    }
+}
