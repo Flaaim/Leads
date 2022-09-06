@@ -74,7 +74,7 @@ class ModularProvider extends ServiceProvider
                 'prefix'=>strtolower($mod),
                 'middleware' => $this->getMiddleware($mod, 'api'),
             ], function() use($mod, $sub, $routesPath){
-                Route::namespace("App\\Modules\\$mod\\$sub\\Controllers")->group($routesPath);
+                Route::namespace("App\\Modules\\$mod\\$sub\\Controllers\\Api")->group($routesPath);
             });
         }
     }
