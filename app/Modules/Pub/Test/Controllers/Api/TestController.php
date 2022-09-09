@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Modules\Admin\Dashboard\Controllers;
+namespace App\Modules\Pub\Test\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Modules\Admin\Dashboard\Models\Dashboard;
+use App\Modules\Pub\Test\Models\Test;
 
-class DashboardController extends Controller {
+class TestController extends Controller {
 
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class DashboardController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Dashboard $dashboard)
+    public function store(Request $request, Test $test)
     {
         //
     }
@@ -45,7 +45,7 @@ class DashboardController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Dashboard $dashboard)
+    public function show(Test $test)
     {
         //
     }
@@ -56,7 +56,7 @@ class DashboardController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dashboard $dashboard)
+    public function edit(Test $test)
     {
         //
     }
@@ -68,7 +68,7 @@ class DashboardController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dashboard $dashboard)
+    public function update(Request $request, Test $test)
     {
         //
     }
@@ -79,7 +79,7 @@ class DashboardController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dashboard $dashboard)
+    public function destroy(Test $test)
     {
         //
     }
