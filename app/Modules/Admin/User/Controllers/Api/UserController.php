@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Modules\Pub\Test\Controllers\Api;
+namespace App\Modules\Admin\User\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Modules\Pub\Test\Models\Test;
+use App\Modules\Admin\User\Models\User;
 
-class TestController extends Controller {
+class UserController extends Controller {
 
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class TestController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Test $test)
+    public function store(Request $request, User $user)
     {
         //
     }
@@ -45,7 +45,7 @@ class TestController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Test $test)
+    public function show(User $user)
     {
         //
     }
@@ -56,7 +56,7 @@ class TestController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Test $test)
+    public function edit(User $user)
     {
         //
     }
@@ -68,7 +68,7 @@ class TestController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Test $test)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -79,7 +79,7 @@ class TestController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Test $test)
+    public function destroy(User $user)
     {
         //
     }

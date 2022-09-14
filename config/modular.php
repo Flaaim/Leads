@@ -18,7 +18,6 @@ return [
             'User',
         ],
         'Pub' => [
-            'Test',
             'Auth',
         ],
     ]

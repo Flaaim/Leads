@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Modules\Pub\Test\Controllers;
+namespace App\Modules\Pub\Auth\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Modules\Pub\Test\Models\Test;
+use App\Modules\Pub\Auth\Models\User;
 
-class TestController extends Controller {
+class LoginController extends Controller {
 
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class TestController extends Controller {
      */
     public function index()
     {
-        return view('Pub::Test.index');
+        //
     }
 
     /**
@@ -34,7 +34,7 @@ class TestController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Test $test)
+    public function store(Request $request, Auth $auth)
     {
         //
     }
@@ -45,7 +45,7 @@ class TestController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Test $test)
+    public function show(Auth $auth)
     {
         //
     }
@@ -56,7 +56,7 @@ class TestController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Test $test)
+    public function edit(Auth $auth)
     {
         //
     }
@@ -68,7 +68,7 @@ class TestController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Test $test)
+    public function update(Request $request, Auth $auth)
     {
         //
     }
@@ -79,7 +79,7 @@ class TestController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Test $test)
+    public function destroy(Auth $auth)
     {
         //
     }
