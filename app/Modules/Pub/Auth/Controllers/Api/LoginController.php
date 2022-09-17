@@ -5,82 +5,27 @@ namespace App\Modules\Pub\Auth\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Modules\Pub\Auth\Models\User;
+use App\Modules\Pub\Auth\Requests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Services\Response\ResponseService;
+use Carbon\Carbon;
 
 class LoginController extends Controller {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    public function login(LoginRequest $request){
+        $credentials = request(['email', 'password']);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request, Auth $auth)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Auth $auth)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Auth $auth)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Auth $auth)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Auth $auth)
-    {
-        //
+        if(!Auth::attempt($credentials)){
+            return ResponseService::sendJsonResponse(false, 403, 
+            ['Ошибка']);
+        }
+        $user = $request->user();
+        $tokenResult = $user->createToken('Personal Access Token');
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'api_token' => $tokenResult->accessToken,
+            'user' => $user,
+            'token_type' => 'Bearer',
+            'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
+        ]);
     }
 }

@@ -4,6 +4,8 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Modules\Admin\Lead\Models\Lead;
+use App\Modules\Admin\Lead\Policies\LeadPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
+            Lead::class => LeadPolicy::class
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
