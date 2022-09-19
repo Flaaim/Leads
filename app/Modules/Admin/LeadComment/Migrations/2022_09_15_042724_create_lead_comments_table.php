@@ -15,6 +15,21 @@ return new class extends Migration
     {
         Schema::create('lead_comments', function (Blueprint $table) {
             $table->id();
+
+            $table->text('text');
+
+            $table->bigInteger('lead_id')->unsigned()->nullable();
+            $table->foreign('lead_id')->references('id')->on('leads')->onDelete('cascade');
+
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->bigInteger('status_id')->unsigned()->nullable();
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+
+            $table->text('commentValue')->nullable();
+            $table->boolean('is_event')->default(0);
+
             $table->timestamps();
         });
     }

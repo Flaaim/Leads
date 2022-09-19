@@ -18,6 +18,8 @@ class Lead extends Model
         'link',
         'isQuality',
         'is_proccesed',
+        'unit_id',
+        'source_id',
     ];
 
     public function unit(){
@@ -38,6 +40,10 @@ class Lead extends Model
 
     public function LeadComments(){
         return $this->hasMany(LeadComment::class);
+    }
+
+    public function statuses(){
+        return $this->belongsToMany(Status::class);
     }
 
     public function getLeads(){

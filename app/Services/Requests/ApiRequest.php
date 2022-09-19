@@ -6,6 +6,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Services\Response\ResponseService;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ApiRequest extends FormRequest {
 
