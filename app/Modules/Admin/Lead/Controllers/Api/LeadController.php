@@ -55,4 +55,10 @@ class LeadController extends Controller {
         ]);
     }
 
+    public function destroy(Lead $lead){
+     
+        $lead->statuses()->detach($lead->status->id);
+        return $lead->delete();
+    }
+
 }

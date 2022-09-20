@@ -13,7 +13,7 @@ class LeadComment extends Model
 {
     use HasFactory;
 
-    protected = $fillable = [
+    protected $fillable = [
         'text',
         'commentValue',
     ];
@@ -21,11 +21,12 @@ class LeadComment extends Model
     public function lead(){
         return $this->belongsTo(Lead::class);
     }
+
     public function user(){
-        return $this->belongTo(User:class);
+        return $this->belongsTo(User::class);
     }
 
     public function status(){
-        return $this->belongTo(Status:class);
+        return $this->belongsTo(Status::class);
     }
 }

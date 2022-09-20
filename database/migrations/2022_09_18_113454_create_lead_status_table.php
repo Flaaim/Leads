@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('lead_status', function (Blueprint $table) {
             $table->id();
-            $table->BigInteger('lead_id')->unsigned();
-            $table->foreign('lead_id')->references('id')->on('leads')->OnDelete('cascade');
+            $table->BigInteger('lead_id')->unsigned()->nullable();
+            $table->foreign('lead_id')->references('id')->on('leads');
 
-            $table->bigInteger('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+            $table->bigInteger('status_id')->unsigned()->nullable();
+            $table->foreign('status_id')->references('id')->on('statuses');
 
         });
     }

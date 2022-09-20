@@ -6,6 +6,8 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Modules\Admin\Lead\Models\Lead;
 use App\Modules\Admin\Lead\Policies\LeadPolicy;
+use App\Modules\Admin\LeadComment\Models\LeadComment;
+use App\Modules\Admin\LeadComment\Policies\LeadCommentPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,7 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-            Lead::class => LeadPolicy::class
+            Lead::class => LeadPolicy::class,
+            LeadComment::class => LeadCommentPolicy::class
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
