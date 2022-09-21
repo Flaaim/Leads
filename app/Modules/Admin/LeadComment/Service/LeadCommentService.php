@@ -31,7 +31,7 @@ class LeadCommentService {
         $status = Status::findOrFail($request->status_id);
         
         
-        if($status->id != $lead->status->id){
+        if($status->id != $lead->status_id){
             $is_event = true;
             $tmpText = "Пользователь ".$user->firstname." изменил статус лида на ".$status->title;
             self::saveComment($tmpText, $lead, $user, $status, null, $is_event);
@@ -39,7 +39,7 @@ class LeadCommentService {
             $lead->statuses()->attach($status->id);
         }
         
-        if($request->user_id && $request->user_id != $lead->user->id){
+        if($request->user_id && $request->user_id != $lead->user_id){
             $is_event = true;
             $newUser = User::findOrFail($request->user_id);
             

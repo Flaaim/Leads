@@ -24,4 +24,7 @@ class LeadPolicy
     public function create(User $user){
         return true;
     }
+    public function update(User $user){
+        return true;
+    }
 }
