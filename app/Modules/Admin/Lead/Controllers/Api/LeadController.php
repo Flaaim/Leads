@@ -44,6 +44,16 @@ class LeadController extends Controller {
 
     }
 
+    public function show(Lead $lead){
+        $this->authorize('view', Lead::class);
+        
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'item' => $lead,
+        ]);
+    }
+
+
+
     public function store(LeadCreateRequest $request){
         
         $this->authorize('create', Lead::class);
@@ -61,13 +71,32 @@ class LeadController extends Controller {
         return $lead->delete();
     }
 
-    public function update(Request $request, Lead $lead){
+    public function update(LeadCreateRequest $request, Lead $lead){
         $this->authorize('update', Lead::class);
 
         $lead = $this->service->update($request, $lead, Auth::user());
 
         return ResponseService::sendJsonResponse(true, 200, [], [
-            'lead' => $lead,
+            'item' => $lead,
+        ]);
+    }
+
+    public function arhive(){
+        $this->authorize('view', Lead::class);
+        $leads = $this->service->arhive();
+
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'items' => $leads,
+        ]);
+    }
+
+    public function checkExists(Request $request){
+        $this->authorize('create', Lead::class);
+
+        $lead = $this->service->checkExists($request);
+
+        return ResponseService::sendJsonResponse(true, 200, [], [
+            'item' => $lead
         ]);
     }
 

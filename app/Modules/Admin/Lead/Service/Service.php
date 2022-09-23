@@ -73,4 +73,25 @@ class Service {
         LeadCommentService::saveComment($tmpText, $lead, $user, $status, null, $is_event);
         $lead->statuses()->attach($status->id);
     }
+
+    public function arhive(){
+        $leads = (new Lead)->getArhiveLeads();
+        
+        return $leads;
+    }
+
+
+
+    public function checkExists($request){
+        $queryBuilder = Lead::select('*');
+
+        if($request->link){
+            $queryBuilder->where('link', $request->link);
+        } 
+        elseif($request->phone){
+            $queryBuilder->where('phone', $request->phone);
+        }
+        return $queryBuilder->where('status_id', Lead::DONE_STATUS)->first();
+
+    }
 }

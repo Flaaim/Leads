@@ -13,6 +13,8 @@ class Lead extends Model
 {
     use HasFactory;
 
+    const DONE_STATUS = 3;
+
     protected $fillable = [
         'phone',
         'link',
@@ -52,5 +54,12 @@ class Lead extends Model
                 ['status_id', 3],
                 ['updated_at', '>', \DB::raw('DATE_SUB(NOW(), INTERVAL 24 HOUR)')],
             ])->orderBy('created_at')->get();
+    }
+
+    public function getArhiveLeads(){
+        return $this->with('unit', 'source', 'status')->where([            
+            ['status_id', self::DONE_STATUS], 
+            ['updated_at', '>', \DB::raw('DATE_SUB(NOW(), INTERVAL 24 HOUR)')]
+            ])->orderBy('id','desc')->paginate(config('settings.paginate'));
     }
 }
